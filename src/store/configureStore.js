@@ -1,11 +1,12 @@
-import { createStore, applyMiddleware } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import notesReducer from "../reducers/notesReducer";
+import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+import notesReducer from '../reducers/notesReducer';
 
 const configureStore = () => {
   const store = createStore(
     notesReducer,
-    composeWithDevTools(applyMiddleware())
+    composeWithDevTools(applyMiddleware(thunk))
   );
 
   return store;

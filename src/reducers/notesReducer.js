@@ -1,20 +1,28 @@
-const intialState = [];
+const intialState = { notes: [], currId: '' };
 
 const notesReducer = (state = intialState, action) => {
+  let notes = [];
+
   switch (action.type) {
     case 'ADD_NOTE':
-      return [...state, action.note];
+      notes = [...state.notes, action.note];
+      return { ...state, notes };
 
     case 'EDIT_NOTE':
-      return state.map((note) =>
+      notes = state.notes.map((note) =>
         note.id === action.id ? { ...note, ...action.updates } : note
       );
+      return { ...state, notes };
 
     case 'REMOVE_NOTE':
-      return state.filter(({ id }) => id !== action.id);
+      notes = state.notes.filter(({ id }) => id !== action.id);
+      return { ...state, notes };
 
     case 'SET_NOTES':
-      return action.notes;
+      return { ...state, notes: action.notes };
+
+    case 'SET_CURR_ID':
+      return { ...state, currId: action.currId };
 
     default:
       return state;
